@@ -16,18 +16,18 @@
 	<task:executor id="executor" pool-size="5"/>
 	<task:scheduler id="scheduler" pool-size="10"/>
 
-	<import resource="classpath:/persistenceConfigurationContextMock.xml" />
-
-	<bean id="filterStreamCollector-1" destroy-method="stop"
-		class="ch.armasuisse.twitterdemo.FilterStreamCollector">
+	<bean id="filterStreamCollector" destroy-method="stop"
+		class="ch.trivadis.sample.twitter.StreamCollector">
 		<property name="kafkaHostname" value="${kafka.hostname}" />
 		<property name="kafkaPort" value="${kafka.port}" />
 		<property name="kafkaTopicName" value="${kafka.topicName11}" />
+		<property name="consumerKey" value="H4NAx1fZLKWoSdnUFQBZA"/>
+		<property name="consumerSecret" value="XJOPasaBzcIDrPtA6OVE1cE5x6JmqpXraYNeaLoUXk"/>
+		<property name="accessToken" value="852289452-7tbegDh42pziIxiJBqZnDOQUtH40uf2SRfK3SE"/>
+		<property name="accessTokenSecret" value="4GVDvLTwXnBsan4ObkVo4uPtBpXiXsyn7kU4eRiGA"/>
+		<property name="trackTerms" value="bigdata"/>
 
 		<property name="numberOfProcessingThreads" value="5" />
-
-		<property name="targetId" value="34df6f70-ed49-11e2-91e2-0800200c9a66" />
-		<property name="configurationRepository" ref="configurationRepository" />
 
 	</bean>
 

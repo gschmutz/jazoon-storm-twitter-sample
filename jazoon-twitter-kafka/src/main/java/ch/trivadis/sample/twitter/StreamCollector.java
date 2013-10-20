@@ -15,12 +15,9 @@ package ch.trivadis.sample.twitter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
-import java.util.Set;
-import java.util.UUID;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -36,7 +33,6 @@ import org.apache.avro.io.DatumWriter;
 import org.apache.avro.io.Encoder;
 import org.apache.avro.io.EncoderFactory;
 import org.apache.avro.specific.SpecificDatumWriter;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Required;
@@ -44,16 +40,11 @@ import org.springframework.jmx.export.annotation.ManagedAttribute;
 import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import twitter4j.IDs;
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
 import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
-import twitter4j.conf.ConfigurationBuilder;
-
 import ch.trivadis.sample.twitter.avro.v11.TwitterStatusUpdate;
 import ch.trivadis.sample.twitter.v11.TwitterStatusUpdateConverter;
 
@@ -61,6 +52,7 @@ import com.google.common.collect.Lists;
 import com.twitter.hbc.ClientBuilder;
 import com.twitter.hbc.core.Constants;
 import com.twitter.hbc.core.endpoint.DefaultStreamingEndpoint;
+import com.twitter.hbc.core.endpoint.StatusesFilterEndpoint;
 import com.twitter.hbc.core.processor.StringDelimitedProcessor;
 import com.twitter.hbc.httpclient.BasicClient;
 import com.twitter.hbc.httpclient.auth.Authentication;
@@ -71,7 +63,7 @@ import com.twitter.hbc.twitter4j.v3.message.DisconnectMessage;
 import com.twitter.hbc.twitter4j.v3.message.StallWarningMessage;
 
 @ManagedResource(description="Streaming Collector")
-public abstract class StreamCollector  {
+public class StreamCollector  {
 	
 	private final static Logger logger = LoggerFactory.getLogger(StreamCollector.class);
 
@@ -99,6 +91,8 @@ public abstract class StreamCollector  {
 	private String consumerSecret;
 	private String accessToken;
 	private String accessTokenSecret;
+	
+	private List<String> trackTerms = new ArrayList<String>();
 
 	@ManagedAttribute(description="Number of tweets processed since start", currencyTimeLimit=15)
 	  public Long getTweetCounter() {
@@ -184,7 +178,17 @@ public abstract class StreamCollector  {
 		this.accessTokenSecret = accessTokenSecret;
 	}
 
-	protected abstract DefaultStreamingEndpoint createEndpoint();
+	public void setTrackTerms(List<String> trackTerms) {
+		this.trackTerms = trackTerms;
+	}
+
+	protected DefaultStreamingEndpoint createEndpoint() {
+		StatusesFilterEndpoint endpoint = new StatusesFilterEndpoint();
+		
+		endpoint.trackTerms(trackTerms);
+		
+		return endpoint;
+	}
 	
 	/**
 	 * Write the counters to the log every 5min

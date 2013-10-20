@@ -105,11 +105,6 @@
 	</dependencies>
 
 	<build>
-		<resources>
-			<resource>
-				<directory>${basedir}/multilang</directory>
-			</resource>
-		</resources>
 		<plugins>
 			<!-- bind the maven-assembly-plugin to the package phase this will create 
 				a jar file without the storm dependencies suitable for deployment to a cluster. -->

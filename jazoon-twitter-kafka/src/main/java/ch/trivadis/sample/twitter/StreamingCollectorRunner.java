@@ -9,10 +9,8 @@ public class StreamingCollectorRunner {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				"classpath:applicationContext.xml");
 
-
-
 		StreamCollector obj12 = (StreamCollector) context
-				.getBean("filterStreamCollector-12");
+				.getBean("filterStreamCollector");
 		obj12.start();
 	}
 

@@ -1,7 +1,6 @@
 package ch.trivadis.sample.twitter.v11;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 
