@@ -1,0 +1,145 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.trivadis.sample.jazoon</groupId>
+		<artifactId>root_pom</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>jazoon-twitter-kafka</artifactId>
+	<packaging>jar</packaging>
+
+	<name>Jazoon Twitter to Kafka sample</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<repositories>
+		<repository>
+			<id>github-releases</id>
+			<url>http://oss.sonatype.org/content/repositories/github-releases/</url>
+		</repository>
+		<repository>
+			<id>clojars.org</id>
+			<url>http://clojars.org/repo</url>
+		</repository>
+		<repository>
+			<id>twitter4j</id>
+			<url>http://twitter4j.org/maven2</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.trivadis.sample.jazoon</groupId>
+			<artifactId>jazoon-meta</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.8</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.clojars.jasonjckn</groupId>
+			<artifactId>kafka_2.9.2</artifactId>
+			<version>0.7.2-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.twitter</groupId>
+			<artifactId>hbc-core</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.twitter</groupId>
+			<artifactId>hbc-twitter4j-v3</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.twitter4j</groupId>
+			<artifactId>twitter4j-core</artifactId>
+			<version>3.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.twitter4j</groupId>
+			<artifactId>twitter4j-stream</artifactId>
+			<version>3.0.3</version>
+		</dependency>		
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>${basedir}/multilang</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<!-- bind the maven-assembly-plugin to the package phase this will create 
+				a jar file without the storm dependencies suitable for deployment to a cluster. -->
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass></mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+				<execution>
+					<goals>
+						<goal>java</goal>
+					</goals>
+				</execution>
+				</executions>
+				<configuration>
+					<mainClass>ch.trivadis.sample.storm.TopologyRunner</mainClass>
+						<arguments>
+							<argument>${consumer.key}</argument>
+							<argument>${consumer.secret}</argument>
+							<argument>${access.token}</argument>
+							<argument>${access.token.secret}</argument>
+						</arguments>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<groupId>com.trivadis.sample.jazoon</groupId>
+</project>
