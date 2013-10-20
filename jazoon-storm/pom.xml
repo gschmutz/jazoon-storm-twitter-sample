@@ -2,12 +2,15 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.trivadis.sample.storm</groupId>
-	<artifactId>storm-jazoon</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<parent>
+		<groupId>com.trivadis.sample.jazoon</groupId>
+		<artifactId>root_pom</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>jazoon-storm</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Java Forum Strom sample</name>
+	<name>Jazoon Twitter to Kafka sample</name>	<groupId>com.trivadis.sample.jazoon</groupId>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
