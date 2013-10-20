@@ -125,12 +125,8 @@
 				</execution>
 				</executions>
 				<configuration>
-					<mainClass>ch.trivadis.sample.storm.TopologyRunner</mainClass>
+					<mainClass>ch.trivadis.sample.twitter.StreamingCollectorRunner</mainClass>
 						<arguments>
-							<argument>${consumer.key}</argument>
-							<argument>${consumer.secret}</argument>
-							<argument>${access.token}</argument>
-							<argument>${access.token.secret}</argument>
 						</arguments>
 				</configuration>
 			</plugin>
