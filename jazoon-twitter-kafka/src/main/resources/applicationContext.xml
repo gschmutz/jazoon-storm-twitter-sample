@@ -25,7 +25,7 @@
 		<property name="consumerSecret" value="XJOPasaBzcIDrPtA6OVE1cE5x6JmqpXraYNeaLoUXk"/>
 		<property name="accessToken" value="852289452-7tbegDh42pziIxiJBqZnDOQUtH40uf2SRfK3SE"/>
 		<property name="accessTokenSecret" value="4GVDvLTwXnBsan4ObkVo4uPtBpXiXsyn7kU4eRiGA"/>
-		<property name="trackTerms" value="bigdata"/>
+		<property name="trackTerms" value="jazoon"/>
 
 		<property name="numberOfProcessingThreads" value="5" />
 
