@@ -25,7 +25,7 @@ public class HashtagCounterRedis extends BaseBasicBolt {
 	public void execute(Tuple input, BasicOutputCollector collector) {
 		String hashtag = input.getStringByField("hashtag");
 		System.out.println("hashtag : " + hashtag);
-		jedis.hincrBy("jfs2013:hashtags", hashtag, 1);
+		jedis.hincrBy("jazoon:hashtags", hashtag, 1);
 	}
 
 	@Override

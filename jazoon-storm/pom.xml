@@ -32,6 +32,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.trivadis.sample.jazoon</groupId>
+			<artifactId>jazoon-meta</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
@@ -58,8 +63,15 @@
 		<dependency>
 			<groupId>storm</groupId>
 			<artifactId>storm</artifactId>
-			<version>0.8.2</version>
+			<version>0.9.0-wip21</version>
+			<scope>provided</scope>
 			<!-- keep storm out of the jar-with-dependencies -->
+		</dependency>
+		<dependency>
+			<groupId>storm</groupId>
+			<artifactId>storm-kafka</artifactId>
+			<version>0.9.0-wip16a-scala292</version>
+			<!-- <version>0.8.0-wip4</version> -->
 		</dependency>
 		<dependency>
 			<groupId>org.twitter4j</groupId>

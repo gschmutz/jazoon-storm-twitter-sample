@@ -1,5 +1,11 @@
 package ch.trivadis.sample.storm;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import storm.kafka.KafkaConfig;
+import storm.kafka.KafkaSpout;
+import storm.kafka.SpoutConfig;
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
 import backtype.storm.generated.StormTopology;
@@ -7,22 +13,35 @@ import backtype.storm.topology.TopologyBuilder;
 import backtype.storm.tuple.Fields;
 import ch.trivadis.sample.storm.bolt.HashtagCounterRedis;
 import ch.trivadis.sample.storm.bolt.HashtagSplitter;
-import ch.trivadis.sample.storm.spout.TwitterStreamingSpout;
+import ch.trivadis.sample.storm.bolt.Unmarshaller;
 
 public class TopologyRunner {
 
-	public static StormTopology createTopology(String consumerKey,
-			String consumerSecret, String token, String secret) {
+	public static StormTopology createTopology() {
 		
 		TopologyBuilder builder = new TopologyBuilder();
 
-		builder.setSpout("tweet-stream", new TwitterStreamingSpout(
-				consumerKey, consumerSecret, token, secret, new String[] { "#BigData", "#NoSQL", "#Hadoop" }), 1);
+        int partitions = 1;
+        final String offsetPath = "/tweet_v11";
+        final String consumerId = "v1";
+        final String topic = "TOPIC_TWEET_V10";
+        
+        List<String> hosts = new ArrayList<String>();
+        hosts.add("localhost");
+        SpoutConfig kafkaConfig = new SpoutConfig(KafkaConfig.StaticHosts.fromHostString(hosts, partitions), topic, offsetPath, consumerId);
+        kafkaConfig.bufferSizeBytes = 1024*1024*4;
+        kafkaConfig.fetchSizeBytes = 1024*1024*4;
+        kafkaConfig.forceFromStart = true;
+		
+        KafkaSpout kafkaSpout = new KafkaSpout(kafkaConfig);
+		
+		builder.setSpout("tweet-stream", kafkaSpout, 1);
 		//builder.setSpout("tweet-stream", new TwitterStreamingSpoutMock(), 1);
 		
+		builder.setBolt("unmarshaller", new Unmarshaller(), 2).shuffleGrouping("tweet-stream");
 		
 		builder.setBolt("hashtag-splitter", new HashtagSplitter(), 2)
-				.shuffleGrouping("tweet-stream");
+				.shuffleGrouping("unmarshaller");
 		
 		//builder.setBolt("hashtag-filter", new HashtagWireTap(), 2).shuffleGrouping("hashtag-splitter"); 
 		
@@ -41,7 +60,7 @@ public class TopologyRunner {
 	 */
 	public static void main(String[] args) throws InterruptedException {
 
-		StormTopology topology = createTopology(args[0],args[1],args[2],args[3]);
+		StormTopology topology = createTopology();
 		
 		Config conf = new Config();
 		conf.setDebug(true);
