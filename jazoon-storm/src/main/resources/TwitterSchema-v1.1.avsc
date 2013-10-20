@@ -1,0 +1,220 @@
+{
+  "type" : "record",
+  "namespace" : "ch.trivadis.sample.twitter.avro.v11",
+  "name" : "TwitterStatusUpdate",
+  "description" : "A simpler representation of a Twitter4j Status object",
+  "fields" : [
+    { "name" : "contributors", 
+      "type" : { 
+          "type" : "array", 
+          "items" : { 
+              "type" : "long"
+          } 
+      } 
+    },
+    { "type" : ["string", "null"],
+      "name" : "createdAt"
+    },
+    { "type" : "long",
+      "name" : "createdAtAsLong",
+      "default" : 0
+    },
+    { "type" : "long", 
+      "name" : "currentUserRetweetId" 
+    },
+    { "type" : "long", 
+      "name" : "id",
+      "default" : -1
+    },
+    { "type" : ["string", "null"], 
+      "name" : "inReplyToScreenName" 
+    },
+    { "type" : "long", 
+      "name" : "inReplyToStatusId" 
+    },
+    { "type" : "long", 
+      "name" : "inReplyToUserId" 
+    },
+    { "type" : "long", 
+      "name" : "retweetCount" 
+    },
+    { "type" : ["string", "null"],
+      "name" : "source" 
+    },
+    { "type" : ["string", "null"],
+      "name" : "text" 
+    },
+    { "type" : "boolean", 
+      "name" : "isFavorited" 
+    },
+    { "type" : "boolean", 
+      "name" : "isPossiblySensitive" 
+    },
+    { "type" : "boolean", 
+      "name" : "isRetweet" 
+    },
+    { "type" : "boolean", 
+      "name" : "isRetweetedByMe" 
+    },
+    { "type" : "boolean", 
+      "name" : "isTruncated" 
+    },
+    { "type" : "double",
+      "name" : "coordinatesLatitude"
+    },
+    { "type" : "double",
+      "name" : "coordinatesLongitude"
+    },
+    { "name" : "hashtagEntities", 
+      "type" : { 
+          "type" : "array", 
+          "items" : { 
+              "type" : "record", 
+              "name" : "TwitterHashtagEntity",
+              "description" : "A simpler representation of a Twitter4j HashtagEntity object", 
+              "fields" : [
+                  { "type" : "int", 
+                    "name" : "end"},
+                  { "type" : "int", 
+                    "name" : "start"},
+                  { "type" : ["string", "null"], 
+                    "name" : "text" }
+              ]
+          }
+      }
+    },
+    { "name" : "mediaEntities",
+      "type" : {
+          "type" : "array",
+          "items" : {
+              "type" : "record",
+              "name" : "TwitterMediaEntity",
+              "description" : "A simpler representation of a Twitter4j MediaEntity object",
+              "fields" : [
+                  { "type" : "long", 
+                    "name" : "id"},
+                  { "type" : ["string", "null"], 
+                    "name" : "mediaURL" },
+                  { "type" : ["string", "null"],
+                    "name" : "mediaURLHttps" },
+                  { "type" : ["string", "null"],
+                    "name" : "type" }
+              ]
+          }
+      }
+    },
+    { "name" : "urlEntities",
+      "type" : {
+          "type" : "array",
+          "items" : {
+              "type" : "record",
+              "name" : "TwitterURLEntity",
+              "description" : "A simpler representation of a Twitter4j URLEntity object",
+              "fields" : [
+                  { "type" : ["string", "null"], 
+                    "name" : "displayURL" },
+                  { "type" : "int", 
+                    "name" : "end"},
+                  { "type" : "int", 
+                    "name" : "start"},
+                  { "type" : ["string", "null"], 
+                    "name" : "URL" },
+                  { "type" : ["string", "null"], 
+                    "name" : "expandedURL" }
+              ]
+          }
+      }
+    },
+    { "name" : "userMentionEntities",
+      "type" : {
+          "type" : "array",
+          "items" : {
+              "type" : "record",
+              "name" : "TwitterUserMentionEntity",
+              "description" : "A simpler representation of a Twitter4j UserMentionEntity object",
+              "fields" : [
+                  { "type" : "int", 
+                    "name" : "end"},
+                  { "type" : "int", 
+                    "name" : "start"},
+                  { "type" : ["string", "null"], 
+                    "name" : "name" },
+                  { "type" : ["string", "null"], 
+                    "name" : "screenName" },
+                  { "type" : "long", 
+                    "name" : "id" }
+              ]
+          }
+      }
+    },
+    { "name" : "Place",
+      "description" : "A simpler representation of a Twitter4j Place object",
+      "type" : {
+        "type" : "record",
+        "name" : "TwitterPlace",
+        "fields" : [
+            { "type" : ["string", "null"],
+                "name" : "URL" },
+            { "type" : ["string", "null"],
+                "name" : "streetAddress" },
+            { "type" : ["string", "null"],
+                "name" : "placeType" },
+            { "type" : ["string", "null"],
+                "name" : "name" },
+            { "type" : ["string", "null"],
+                "name" : "fullName" },
+            { "type" : ["string", "null"],
+                "name" : "id" },
+            { "type" : ["string", "null"],
+                "name" : "country" },
+            { "type" : ["string", "null"],
+                "name" : "countryCode" },
+            { "name" : "boundingBox",
+                "type" : {
+                    "type" : "array",
+                    "items" : {
+                        "type" : "record",
+                        "name" : "TwitterGeoLocation",
+                        "description" : "A simpler representation of a Twitter4j GeoLocation object",
+                        "fields" : [
+                            { "type" : "double",
+                                "name" : "latitude"},
+                            { "type" : "double",
+                                "name" : "longitude"}
+                        ]
+                    }
+                }
+            }
+        ]
+      }
+    },
+    { "name" : "User",
+      "description" : "A simpler representation of a Twitter4j User object",
+      "type" : {
+        "type" : "record",
+        "name" : "TwitterUser",
+        "fields" : [
+            { "type" : "long",
+                "name" : "id",
+                "default" : -1 },
+            { "type" : ["string", "null"],
+                "name" : "screenName" },
+            { "type" : ["string", "null"],
+                "name" : "createdAt" },
+            { "type" : "int",
+                "name" : "followersCount" },
+            { "type" : "int",
+                "name" : "friendsCount" },
+            { "type" : "int",
+                "name" : "listedCount" },
+            { "type" : ["string", "null"],
+                "name" : "profileImageURL" },
+            { "type" : "int",
+                "name" : "statusesCount" },
+            { "type" : "boolean",
+                "name" : "verified" }
+        ]
+      }
+    }
+  ]
+}
