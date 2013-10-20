@@ -13,7 +13,7 @@ import backtype.storm.topology.TopologyBuilder;
 import backtype.storm.tuple.Fields;
 import ch.trivadis.sample.storm.bolt.HashtagCounterRedis;
 import ch.trivadis.sample.storm.bolt.HashtagSplitter;
-import ch.trivadis.sample.storm.bolt.Unmarshaller;
+import ch.trivadis.sample.storm.bolt.DeserializerAndConverter;
 
 public class TopologyRunner {
 
@@ -38,7 +38,7 @@ public class TopologyRunner {
 		builder.setSpout("tweet-stream", kafkaSpout, 1);
 		//builder.setSpout("tweet-stream", new TwitterStreamingSpoutMock(), 1);
 		
-		builder.setBolt("unmarshaller", new Unmarshaller(), 2).shuffleGrouping("tweet-stream");
+		builder.setBolt("unmarshaller", new DeserializerAndConverter(), 2).shuffleGrouping("tweet-stream");
 		
 		builder.setBolt("hashtag-splitter", new HashtagSplitter(), 2)
 				.shuffleGrouping("unmarshaller");
