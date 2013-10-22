@@ -35,6 +35,13 @@
 			<groupId>com.trivadis.sample.jazoon</groupId>
 			<artifactId>jazoon-meta</artifactId>
 			<version>1.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-simple</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
+
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -64,7 +71,6 @@
 			<groupId>storm</groupId>
 			<artifactId>storm</artifactId>
 			<version>0.9.0-wip21</version>
-			<scope>provided</scope>
 			<!-- keep storm out of the jar-with-dependencies -->
 		</dependency>
 		<dependency>
@@ -107,13 +113,24 @@
 			<groupId>storm.trident.redis</groupId>
 			<artifactId>trident-redis</artifactId>
 			<version>1.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>storm</groupId>
+					<artifactId>storm</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.datastax.cassandra</groupId>
 			<artifactId>cassandra-driver-core</artifactId>
-			<version>1.0.0-beta1</version>
+			<version>1.0.4</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -164,12 +181,6 @@
 				</executions>
 				<configuration>
 					<mainClass>ch.trivadis.sample.storm.TopologyRunner</mainClass>
-						<arguments>
-							<argument>${consumer.key}</argument>
-							<argument>${consumer.secret}</argument>
-							<argument>${access.token}</argument>
-							<argument>${access.token.secret}</argument>
-						</arguments>
 				</configuration>
 			</plugin>
 		</plugins>

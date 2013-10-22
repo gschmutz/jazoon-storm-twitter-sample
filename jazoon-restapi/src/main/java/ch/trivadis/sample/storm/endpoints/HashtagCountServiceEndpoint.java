@@ -26,12 +26,12 @@ public class HashtagCountServiceEndpoint extends AbstractServiceEndpoint {
     @GET
     @Path("hashtagCounts")
     public String getHashtagCounts() {
-    	Map<String,String> hashtagCounts = jedis.hgetAll("jfs2013:hashtags");
+    	Map<String,String> hashtagCounts = jedis.hgetAll("jazoon:hashtags");
     	
         StringBuffer response = new StringBuffer();
         response.append("hashtag").append("\t").append("count").append("\n");
     	for (String hashtag : hashtagCounts.keySet()) {
-    		if (!hashtag.equals("jfs2013"))
+    		if (!hashtag.equals("jazoon"))
     			response.append(hashtag).append("\t").append(hashtagCounts.get(hashtag)).append("\n");
     	}
     	return response.toString();
