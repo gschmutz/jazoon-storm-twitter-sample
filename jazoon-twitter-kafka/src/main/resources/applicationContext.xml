@@ -21,10 +21,10 @@
 		<property name="kafkaHostname" value="${kafka.hostname}" />
 		<property name="kafkaPort" value="${kafka.port}" />
 		<property name="kafkaTopicName" value="${kafka.topicName11}" />
-		<property name="consumerKey" value="H4NAx1fZLKWoSdnUFQBZA"/>
-		<property name="consumerSecret" value="XJOPasaBzcIDrPtA6OVE1cE5x6JmqpXraYNeaLoUXk"/>
-		<property name="accessToken" value="852289452-7tbegDh42pziIxiJBqZnDOQUtH40uf2SRfK3SE"/>
-		<property name="accessTokenSecret" value="4GVDvLTwXnBsan4ObkVo4uPtBpXiXsyn7kU4eRiGA"/>
+		<property name="consumerKey" value="${twitter.consumerKey}"/>
+		<property name="consumerSecret" value="${twitter.consumerSecret}"/>
+		<property name="accessToken" value="${twitter.accessToken}"/>
+		<property name="accessTokenSecret" value="${twitter.accessTokenSecret}"/>
 		<property name="trackTerms" value="jazoon"/>
 
 		<property name="numberOfProcessingThreads" value="5" />
