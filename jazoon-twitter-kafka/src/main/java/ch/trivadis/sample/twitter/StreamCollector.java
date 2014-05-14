@@ -286,9 +286,10 @@ public class StreamCollector  {
 	        Message message = new Message(out.toByteArray());
 	        if (producer == null) {
 	        	Properties props = new Properties();
-	        	props.put("zk.connect", zkConnection);
+	        	props.put("metadata.broker.list", zkConnection);
+	        	props.put("request.required.acks", "1");
 	        	//props.put("serializer.class", "kafka.serializer.StringEncoder");
-	        	props.put("producer.type", "async");
+	        	props.put("producer.type", "sync");
 	        	props.put("compression.codec", "1");
 	        	producer = new kafka.javaapi.producer.Producer<String, byte[]>(new ProducerConfig(props));
 	        }	
