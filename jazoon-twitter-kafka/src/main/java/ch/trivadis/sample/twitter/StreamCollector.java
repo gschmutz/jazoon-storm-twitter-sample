@@ -25,8 +25,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicLong;
 
 import kafka.javaapi.producer.Producer;
-import kafka.javaapi.producer.ProducerData;
 import kafka.message.Message;
+import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
 
 import org.apache.avro.io.DatumWriter;
@@ -183,6 +183,7 @@ public class StreamCollector  {
 	}
 
 	protected DefaultStreamingEndpoint createEndpoint() {
+		
 		StatusesFilterEndpoint endpoint = new StatusesFilterEndpoint();
 		
 		endpoint.trackTerms(trackTerms);
@@ -267,7 +268,7 @@ public class StreamCollector  {
 	// A bare bones StatusStreamHandler, which extends listener and gives some
 	// extra functionality
 	private StatusListener listener2 = new StatusStreamHandler() {
-		Producer<Message, Message> producer = null;
+		Producer<String, byte[]> producer = null;
 		
 	    public void store(Status status) throws IOException, InterruptedException {
 	        final String zkConnection = kafkaHostname + ":" + kafkaPort;
@@ -289,9 +290,9 @@ public class StreamCollector  {
 	        	//props.put("serializer.class", "kafka.serializer.StringEncoder");
 	        	props.put("producer.type", "async");
 	        	props.put("compression.codec", "1");
-	        	producer = new kafka.javaapi.producer.Producer<Message, Message>(new ProducerConfig(props));
+	        	producer = new kafka.javaapi.producer.Producer<String, byte[]>(new ProducerConfig(props));
 	        }	
-	        producer.send(new ProducerData<Message, Message>(topic, message));
+	        producer.send(new KeyedMessage<String, byte[]>(topic, out.toByteArray()));
 	    }
 		
 		int i = 0;
