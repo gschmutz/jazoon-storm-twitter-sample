@@ -49,12 +49,18 @@
 			<version>6.8</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
-			<groupId>org.clojars.jasonjckn</groupId>
+			
+			<groupId>org.apache.kafka</groupId>
+
 			<artifactId>kafka_2.9.2</artifactId>
-			<version>0.7.2-SNAPSHOT</version>
+
+			<version>0.8.1</version>
+
 		</dependency>
-		
+
+
 		<dependency>
 			<groupId>com.twitter</groupId>
 			<artifactId>hbc-core</artifactId>

@@ -25,7 +25,7 @@
 		<property name="consumerSecret" value="${twitter.consumerSecret}"/>
 		<property name="accessToken" value="${twitter.accessToken}"/>
 		<property name="accessTokenSecret" value="${twitter.accessTokenSecret}"/>
-		<property name="trackTerms" value="jazoon"/>
+		<property name="trackTerms" value="java"/>
 
 		<property name="numberOfProcessingThreads" value="5" />
 
