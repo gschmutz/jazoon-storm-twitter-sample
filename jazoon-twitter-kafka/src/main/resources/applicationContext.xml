@@ -10,8 +10,9 @@
    			http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
 	<context:property-placeholder location="classpath*:configuration.properties" />
+<!-- 
 	<context:mbean-export registration="replaceExisting" />
-
+ -->
 	<task:annotation-driven executor="executor" scheduler="scheduler"/>
 	<task:executor id="executor" pool-size="5"/>
 	<task:scheduler id="scheduler" pool-size="10"/>
@@ -25,7 +26,7 @@
 		<property name="consumerSecret" value="${twitter.consumerSecret}"/>
 		<property name="accessToken" value="${twitter.accessToken}"/>
 		<property name="accessTokenSecret" value="${twitter.accessTokenSecret}"/>
-		<property name="trackTerms" value="java"/>
+		<property name="trackTerms" value="justin"/>
 
 		<property name="numberOfProcessingThreads" value="5" />
 

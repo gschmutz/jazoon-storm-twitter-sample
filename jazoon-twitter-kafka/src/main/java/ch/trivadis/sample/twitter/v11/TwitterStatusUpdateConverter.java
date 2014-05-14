@@ -37,6 +37,7 @@ public class TwitterStatusUpdateConverter {
 	}
 
 	public static TwitterStatusUpdate convert(Status status) {
+		System.out.println(status.getText());
 		TwitterStatusUpdate TwitterStatusUpdate = initializeTwitterStatusUpdate();
 		try {
 			/* Setting contributors in TwitterStatusUpdate */
@@ -56,7 +57,7 @@ public class TwitterStatusUpdateConverter {
 			TwitterStatusUpdate.setInReplyToStatusId(status
 					.getInReplyToStatusId());
 			TwitterStatusUpdate.setInReplyToUserId(status.getInReplyToUserId());
-			TwitterStatusUpdate.setRetweetCount(status.getRetweetCount());
+			//TwitterStatusUpdate.setRetweetCount(status.getRetweetCount());
 			TwitterStatusUpdate.setSource(status.getSource());
 			TwitterStatusUpdate.setText(status.getText());
 			TwitterStatusUpdate.setIsFavorited(status.isFavorited());
