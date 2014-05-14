@@ -285,6 +285,9 @@ public class StreamCollector  {
 
 	        Message message = new Message(out.toByteArray());
 	        if (producer == null) {
+	        	System.out.println("Connecting to Kafka Server: " +zkConnection + " using topic " + topic);
+	        	logger.info("Connecting to Kafka Server: " +zkConnection + " using topic " + topic);
+
 	        	Properties props = new Properties();
 	        	props.put("metadata.broker.list", zkConnection);
 	        	props.put("request.required.acks", "1");
@@ -292,6 +295,9 @@ public class StreamCollector  {
 	        	props.put("producer.type", "sync");
 	        	props.put("compression.codec", "1");
 	        	producer = new kafka.javaapi.producer.Producer<String, byte[]>(new ProducerConfig(props));
+	        	
+	        	System.out.println("Connected Sucessfully to Kafka Server: " +zkConnection + " using topic " + topic);
+	        	logger.info("Connected Successfully to Kafka Server: " +zkConnection + " using topic " + topic);
 	        }	
 	        producer.send(new KeyedMessage<String, byte[]>(topic, out.toByteArray()));
 	    }
